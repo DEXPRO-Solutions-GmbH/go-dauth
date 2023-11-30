@@ -13,11 +13,8 @@ type JwtMiddleware struct {
 	parser    TokenParser
 }
 
-func NewJwtMiddleware(extractor TokenExtractor, parser TokenParser, options ...JwtMiddlewareOpt) *JwtMiddleware {
+func NewJwtMiddleware(extractor TokenExtractor, parser TokenParser) *JwtMiddleware {
 	j := &JwtMiddleware{extractor: extractor, parser: parser}
-	for _, option := range options {
-		j = option(j)
-	}
 	return j
 }
 
