@@ -11,12 +11,10 @@ import (
 type JwtMiddleware struct {
 	extractor TokenExtractor
 	parser    TokenParser
-
-	requireAuth bool
 }
 
 func NewJwtMiddleware(extractor TokenExtractor, parser TokenParser, options ...JwtMiddlewareOpt) *JwtMiddleware {
-	j := &JwtMiddleware{extractor: extractor, parser: parser, requireAuth: true}
+	j := &JwtMiddleware{extractor: extractor, parser: parser}
 	for _, option := range options {
 		j = option(j)
 	}
@@ -29,13 +27,8 @@ func (mw *JwtMiddleware) Gin(ctx *gin.Context) {
 
 	tokenStr, err := mw.extractor.ExtractRequestToken(request)
 	if err != nil || tokenStr == "" {
-		if mw.requireAuth {
-			http.Error(writer, ErrAuthTokenMissing.Error(), http.StatusUnauthorized)
-			ctx.Abort()
-		} else {
-			ctx.Next()
-		}
-
+		http.Error(writer, ErrAuthTokenMissing.Error(), http.StatusUnauthorized)
+		ctx.Abort()
 		return
 	}
 

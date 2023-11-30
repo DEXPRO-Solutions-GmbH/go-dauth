@@ -32,19 +32,5 @@ func TestJwtMiddleware_Gin(t *testing.T) {
 			mw.Gin(ctx)
 			assert.Equal(t, 401, rec.Code)
 		})
-
-		t.Run("responds with 401 if auth is explicitly required", func(t *testing.T) {
-			setup()
-			mw := NewJwtMiddleware(extractor, parser, RequireAuth())
-			mw.Gin(ctx)
-			assert.Equal(t, 401, rec.Code)
-		})
-
-		t.Run("forwards to next handler if auth is not required", func(t *testing.T) {
-			setup()
-			mw := NewJwtMiddleware(extractor, parser, IgnoreMissingAuth())
-			mw.Gin(ctx)
-			assert.Equal(t, 200, rec.Code)
-		})
 	})
 }
