@@ -1,6 +1,7 @@
 package authn
 
 import (
+	"errors"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -31,7 +32,8 @@ func (mw *JwtMiddleware) Gin(ctx *gin.Context) {
 
 	token, claims, err := mw.parser.ParseToken(tokenStr)
 	if err != nil {
-		if _, isValidationErr := err.(*jwt.ValidationError); isValidationErr {
+		var validationErr *jwt.ValidationError
+		if errors.As(err, &validationErr) {
 			http.Error(writer, "auth token validation failed: "+err.Error(), http.StatusUnauthorized)
 			ctx.Abort()
 		} else {
