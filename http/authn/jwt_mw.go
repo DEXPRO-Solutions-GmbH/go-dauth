@@ -35,11 +35,10 @@ func (mw *JwtMiddleware) Gin(ctx *gin.Context) {
 		var validationErr *jwt.ValidationError
 		if errors.As(err, &validationErr) {
 			http.Error(writer, "auth token validation failed: "+err.Error(), http.StatusUnauthorized)
-			ctx.Abort()
 		} else {
 			http.Error(writer, "parsing auth token failed:"+err.Error(), http.StatusUnauthorized)
-			ctx.Abort()
 		}
+		ctx.Abort()
 		return
 	}
 
