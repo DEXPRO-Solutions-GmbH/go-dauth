@@ -88,6 +88,9 @@ var _ = Describe("Protecting an API via Portal", Ordered, func() {
 			const projectID = "d6c2c833-72d7-5618-86ce-29f9b38af12a"
 
 			BeforeAll(func() {
+				Skip("Skipping because CI is not yet set up with required secrets for this test")
+				// TODO: Get secrets via ENV variables and set those up in CI
+
 				By("Fetching a valid auth token")
 
 				token = "valid-token"
