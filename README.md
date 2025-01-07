@@ -17,4 +17,8 @@ The current OAuth archictecture of DEXPRO relies on Keycloak Realms, separating 
 The challenge with this is that each realm has a dedicated cryptography key used for JWT token signing and validation.
 Implementing an API middleware which still allows access to all customers is why this package was created.
 
+The mechanis muchs like this: When a JWT is recieved, the issuer of the token is used to determine the appropriate keycloak realm,
+whose cryptography key must be used for token validation. Technically, that involves fetching and parsing the _JWKS_ of the given
+realm.
+
 The second use case for this package is sharing _Claim_ types across applications.
