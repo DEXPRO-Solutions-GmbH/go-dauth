@@ -1,6 +1,6 @@
 module github.com/DEXPRO-Solutions-GmbH/go-dauth
 
-go 1.22.0
+go 1.23.0
 
 require (
 	github.com/MicahParks/keyfunc v1.1.0
@@ -10,7 +10,7 @@ require (
 	github.com/onsi/ginkgo/v2 v2.22.0
 	github.com/onsi/gomega v1.34.2
 	github.com/stretchr/testify v1.8.4
-	golang.org/x/oauth2 v0.24.0
+	golang.org/x/oauth2 v0.27.0
 )
 
 require (
